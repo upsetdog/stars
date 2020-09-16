@@ -1,4 +1,4 @@
-initconst FPS = 60 / 1000;
+const FPS = 60 / 1000;
 const SCALE = 4;
 
 var canvas, ctx;
