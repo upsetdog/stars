@@ -1,6 +1,10 @@
 const FPS = 60 / 1000;
 const SCALE = 4;
 
+const BACKGROUND_COLOR = "#0d0d0dff";
+const STAR_COLOR = "#ffffffff";
+const LINE_COLOR = "#d0d0d077";
+
 var canvas, ctx;
 var entities = [];
 
@@ -9,18 +13,19 @@ function Star(x, y) {
     this.neighbors = [];
 
     var speed = 0.05;
-    var viewDistance = 30; // how far a neighboring star can be, to be counted as a neighbor.
+    var viewDistance = 30; // how far a neighboring star can be
 
     var movement = {
-        cooldown: 0, // the amount of seconds to move for, before changing direction.
-        min: 2,      // minimum seconds to move for.
-        max: 5,      // maximum seconds to move for.
-        angle: 0     // the angle (in radians) to move in.
+        cooldown: 0, // the amount of seconds to move for, before changing direction
+        min: 2,      // minimum seconds to move for
+        max: 6,      // maximum seconds to move for
+        angle: 0     // the angle (in radians) to move in
     };
 
     var self = this;
 
     this.tick = () => {
+        // movement direction
         movement.cooldown -= 1;
 
         if (movement.cooldown <= 0) {
@@ -32,6 +37,9 @@ function Star(x, y) {
             movement.angle = radians;
         }
 
+
+
+        // try to move
         var tempX = this.pos.x + Math.cos(movement.angle) * speed;
         var tempY = this.pos.y + Math.sin(movement.angle) * speed;
         var cachedX = tempX;
@@ -49,8 +57,10 @@ function Star(x, y) {
             movement.cooldown = 0;
         }
 
-        this.neighbors = [];
 
+
+        // update the neighbors array
+        this.neighbors = [];
         for (var entity of entities) {
             if (entity == self) continue;
 
@@ -68,7 +78,7 @@ function Star(x, y) {
     }
 
     this.renderLines = (ctx) => {
-        ctx.strokeStyle = "#d0d0d077";
+        ctx.strokeStyle = LINE_COLOR;
 
         ctx.beginPath();
         for (var neighbor of this.neighbors) {
@@ -79,7 +89,7 @@ function Star(x, y) {
     }
 
     this.render = (ctx) => {
-        ctx.fillStyle = "#ffffff";
+        ctx.fillStyle = STAR_COLOR;
 
         ctx.fillRect(this.pos.x - 1, this.pos.y, 1, 1);
         ctx.fillRect(this.pos.x + 1, this.pos.y, 1, 1);
@@ -96,7 +106,7 @@ function tick() {
 }
 
 function render() {
-    ctx.fillStyle = "#0d0d0d";
+    ctx.fillStyle = BACKGROUND_COLOR;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     for (var entity of entities) {
