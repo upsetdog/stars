@@ -135,7 +135,7 @@ function setupCanvas() {
     canvas.style.width = `${canvas.width * SCALE}px`;
     canvas.style.height = `${canvas.height * SCALE}px`;
     
-    document.body.appendChid(canvas);
+    document.body.appendChild(canvas);
 
     ctx = canvas.getContext("2d");
 }
