@@ -128,7 +128,7 @@ function setupCanvas() {
     width = width == null ? 160 : width;
     height = height == null ? 144 : width;
     
-    var canvas = document.createElement('canvas');
+    canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
     canvas.id = "game";   
