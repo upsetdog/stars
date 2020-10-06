@@ -119,9 +119,23 @@ function render() {
 }
 
 function setupCanvas() {
-    canvas = document.getElementById("game");
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    
+    var width = urlParams.get('width');
+    var height = urlParams.get('height');
+    
+    width = width == null ? 160 : width;
+    height = height == null ? 144 : width;
+    
+    var canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    canvas.id = "game";   
     canvas.style.width = `${canvas.width * SCALE}px`;
     canvas.style.height = `${canvas.height * SCALE}px`;
+    
+    document.body.appendChid(canvas);
 
     ctx = canvas.getContext("2d");
 }
