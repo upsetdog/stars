@@ -126,7 +126,7 @@ function setupCanvas() {
     var height = urlParams.get('height');
     
     width = width == null ? 160 : width;
-    height = height == null ? 144 : width;
+    height = height == null ? 144 : height;
     
     canvas = document.createElement('canvas');
     canvas.width = width;
